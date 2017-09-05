@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from rest_framework import viewsets
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.response import Response
+from rest_framework.renderers import JSONRenderer
 from .serializers import AlbumSerializer, AlbumDetailSerializer
 from .models import Album
 
@@ -15,6 +16,7 @@ class AlbumViewSet(viewsets.ModelViewSet):
     queryset = Album.objects.all().order_by('-id')
     pagination_class = StandardResultsSetPagination
     serializer_class = AlbumSerializer
+    renderer_classes = (JSONRenderer,)
 
     def retrieve(self, request, pk):
         queryset = Album.objects.all()
